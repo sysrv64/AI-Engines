@@ -1,0 +1,82 @@
+{
+  "labels": [
+    {
+      "name": "bug",
+      "color": "d73a4a",
+      "description": "Confirmed bug in the engine: reproducible and backed up by the code or by the exact error text",
+      "applies_to": ["issue"]
+    },
+    {
+      "name": "enhancement",
+      "color": "a2eeef",
+      "description": "A well-reasoned proposal: a provider, a service, a capability",
+      "applies_to": ["issue"]
+    },
+    {
+      "name": "question",
+      "color": "d876e3",
+      "description": "A genuine question about how the engine works, not a bug report",
+      "applies_to": ["issue"]
+    },
+    {
+      "name": "invalid",
+      "color": "e4e669",
+      "description": "Not confirmable, user error, about the editor rather than the engine, or asking for a service whose terms disqualify it",
+      "applies_to": ["issue"]
+    },
+    {
+      "name": "needs-info",
+      "color": "d4c5f9",
+      "description": "Not enough to reach a conclusion: no provider, no model id, no error text, no reproduction steps",
+      "applies_to": ["issue"]
+    },
+    {
+      "name": "duplicate",
+      "color": "cfd3d7",
+      "description": "Looks like an already-existing issue or pull request",
+      "applies_to": ["issue", "pull_request"]
+    },
+    {
+      "name": "docs",
+      "color": "0075ca",
+      "description": "About the README or the comments, not about code",
+      "applies_to": ["issue", "pull_request"]
+    },
+    {
+      "name": "good-pr",
+      "color": "0e8a16",
+      "description": "A solid pull request: clear diff, follows the conventions, and the host contract is intact",
+      "applies_to": ["pull_request"]
+    },
+    {
+      "name": "needs-work",
+      "color": "fbca04",
+      "description": "A legitimate pull request with problems: editor logic that belongs in the host, a hardcoded string, a wire format changed without saying so, a load-bearing comment deleted",
+      "applies_to": ["pull_request"]
+    },
+    {
+      "name": "trash",
+      "color": "b60205",
+      "description": "Junk: spam, advertising, abuse, no real content, bots",
+      "applies_to": ["issue", "pull_request"]
+    },
+    {
+      "name": "spam",
+      "color": "5319e7",
+      "description": "Flooding: too many issues from the same author in a short time (mechanical antispam, not AI)",
+      "applies_to": ["issue"]
+    },
+    {
+      "name": "moderation-removed",
+      "color": "000000",
+      "description": "Content removed automatically: personal data (doxxing) and/or severe targeted abuse (mechanical moderation action, not a quality label)",
+      "applies_to": ["issue", "pull_request"]
+    },
+    {
+      "name": "needs-triage",
+      "color": "cccccc",
+      "description": "Technical fallback label: the model returned a value that is not in this list",
+      "applies_to": ["issue", "pull_request"]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+# Triage of issues and pull requests.
+#
+# `pull_request_target`, not `pull_request`: labelling a pull request that comes
+# from a fork needs write access from the target branch's context. Never add a
+# checkout of the contribution's own code to this job — the bot reads the diff
+# and the cited files through the API, and a checkout would make a fork's first
+# pull request into code execution with write permissions.
+name: AI triage
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+# Only what is switched on below. `discussions: write` and `actions: write` are
+# absent because the Q&A and workflow-dispatch features are off.
+permissions:
+  issues: write
+  pull-requests: write
+  contents: write
+
+concurrency:
+  group: ai-triage-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  triage:
+    # The rules the bot judges against are `.github/ai-triage/repo_context.md`,
+    # and the labels it may apply are `.github/ai-triage/labels.json`. Both are
+    # part of this repository, so changing them is a reviewable change — and a
+    # report is only ever judged by the rules that are in the tree.
+    runs-on: ubuntu-latest
+    steps:
+      # The base branch, so the action can read this repository's own files.
+      # Never the pull request's head: see the note at the top.
+      - uses: actions/checkout@v7
+
+      - uses: sysv86/ai-triage-bot@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # The same secret Rumo uses. Set it as an organisation secret and both
+          # repositories pick it up; set it per repository and both have to.
+          gemini-api-keys: ${{ secrets.GEMINI_API_KEYS }}
+
+          duplicate-detection-enabled: true
+          max-attachments: 4
+          max-files: 4
+          spam-window-minutes: 60
+          spam-threshold: 5
+          max-api-calls: 60
+
+          # Off, and each says why. Turning one on is a deliberate act rather
+          # than a default that drifted.
+          #
+          # discussions-enabled:       questions get a normal issue; a second
+          #                             Q&A surface is a second place to miss.
+          # agent-enabled:             an engine that opens pull requests on
+          #                             command needs a maintainer watching.
+          # commit-review-enabled:     noise on a repository this size.
+          # workflow-dispatch-enabled: too large a permission for the
+          #                             convenience.
+          # moderation-token:          deletion and blocking need a PAT with
+          #                             elevated scope; labelling works without.

@@ -1,0 +1,69 @@
+name: Bug report
+description: Something in the assistant engine is wrong. If the problem is in the Rumo application itself, report it in Rumo instead.
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository is the assistant engine — providers, models, streaming,
+        the conversation, its chat UI and the generative services. It is consumed
+        by Rumo as a submodule.
+
+        **If the problem is in the editor** — layers, the timeline, effects,
+        rendering, export — it belongs in
+        [Rumo's issues](https://github.com/sysrv64/Rumo/issues), not here. That
+        repository holds the device report rules, and this one does not repeat
+        them.
+
+        Keep it short. Three facts are worth more than a page: what you did, what
+        happened, and which provider and model were involved if one was.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened, and what you expected instead
+      placeholder: |
+        I asked it to change a layer colour and it replied with a tool error
+        instead of doing it.
+    validations:
+      required: true
+
+  - type: input
+    id: provider
+    attributes:
+      label: Provider and model, if the problem involves one
+      description: Which service and which model id. A model problem without these cannot be reproduced.
+      placeholder: e.g. Google Gemini / gemini-3.8-flash-tts, or OpenCode Go / claude-sonnet
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to get there
+      description: Numbered, from opening the assistant. Say how often it happens if it is not every time.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, a screenshot, or the exact error text
+      description: |
+        Logs come from Rumo's Settings → Diagnostics → Save logs to Download,
+        captured while the problem is happening. Paste the error text if that is
+        all you have — the engine's own error messages are specific and usually
+        enough on their own.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: This is about the assistant engine, not about the editor.
+          required: true
+        - label: I searched the open and closed issues and this is not a duplicate.
+          required: true

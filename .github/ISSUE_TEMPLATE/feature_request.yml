@@ -1,0 +1,38 @@
+name: Feature request
+description: Something the engine should do and does not — a provider, a service, a tool, a capability.
+title: "[Feature] "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you are trying to do that you cannot
+      description: The work, not the widget.
+    validations:
+      required: true
+
+  - type: input
+    id: service
+    attributes:
+      label: Which service or provider this is about
+      description: If it is about adding one, name it. If it forbids client-side API keys, say so — that decides the answer.
+      placeholder: e.g. Cohere, Mistral, a self-hosted gateway
+    validations:
+      required: false
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: How you imagine it working
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: I searched the open and closed issues and this is not already asked for.
+          required: true
+        - label: This is about the engine, not about the editor — that belongs in Rumo's issues.
+          required: true

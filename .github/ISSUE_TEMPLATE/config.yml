@@ -1,0 +1,11 @@
+# Blank issues are off: both forms ask for the one thing a blank box forgets —
+# which provider and model, when a model is what went wrong.
+blank_issues_enabled: false
+
+contact_links:
+  - name: Something in the editor is broken
+    url: https://github.com/sysrv64/Rumo/issues/new/choose
+    about: Layers, the timeline, effects, rendering, export — that is Rumo, not this engine. Those forms ask for the device details a renderer report needs.
+  - name: Security problem
+    url: https://github.com/sysrv64/AI-Engines/security/advisories/new
+    about: Report a vulnerability privately rather than in an issue.

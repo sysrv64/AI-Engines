@@ -1,0 +1,45 @@
+# The module's own build.
+#
+# This repository exists so the engine can be edited without the application, and
+# the only claim that justifies it is that the engine still builds on its own. So
+# that is what CI checks: the standalone compile.
+#
+# What it deliberately does not do is the other half. A change here can also
+# break the host — `RumiHost`, a tool spec, a wire format — and only Rumo's build
+# catches that. Both builds matter, and a green run here is half of the story.
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  # A second push supersedes the first: nothing here is worth finishing twice.
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  module-builds:
+    name: The engine compiles on its own
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # 21, matching the host and the Gradle toolchain AGP expects.
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      # The Android SDK is on a runner already; nothing else is, and this module
+      # needs no NDK and no Rust — that is the point of the boundary.
+      - name: Compile the module
+        run: ./gradlew :rumo:compileDebugKotlin --console=plain --no-daemon
