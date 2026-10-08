@@ -1,0 +1,15 @@
+AI-Engines
+==========
+
+  rumo/            GPL-3.0-or-later   the assistant engine: providers, models,
+                                      streaming, the conversation, its chat UI
+                                      and the generative media services —
+                                      Kotlin only, no Rust so far
+
+Full text: LICENSE (GPL-3.0-or-later).
+
+The GPL text is the standard, unmodified licence document. Its "how to apply
+these terms" example has been filled in with this program's name; nothing else
+was changed.
+
+Copyright (C) 2026 Kerneldroid.

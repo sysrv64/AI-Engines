@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The assistant tab: the chat screen, its settings blocks and the sub-agent view.
+
+  Model-facing text is deliberately absent from this file: tool descriptions, the
+  progress notes that go back to the model and the protocol tokens written into the
+  settings file are not read by people, and translating them would change what the
+  model or the gateway sees.
+-->
+<resources>
+
+    <!-- Rumi settings block -->
+    <string name="rumi_settings_intro">Встроенный ассистент. Укажите ему любого провайдера, читайте живой список моделей у него же — и действовать он сможет только своими инструментами.</string>
+    <string name="rumi_section_provider">Провайдер</string>
+    <!-- Appended to the name of a provider the user added, in the provider chips. -->
+    <string name="rumi_custom_suffix"> (свой)</string>
+    <string name="rumi_field_api_key">Ключ API</string>
+    <string name="rumi_field_name">Название</string>
+    <string name="rumi_field_base_url">Базовый URL</string>
+    <string name="rumi_base_url_hint">До сегмента версии, например https://host/v1</string>
+    <!-- %1$s — the provider's name. -->
+    <string name="rumi_key_support">Ключ, выданный %1$s. Хранится отдельно для каждого провайдера, поэтому при переключении второй не теряется.</string>
+    <string name="rumi_field_endpoint">Переопределение адреса</string>
+    <string name="rumi_endpoint_required">Требуется для своего провайдера</string>
+    <string name="rumi_field_protocol">Протокол</string>
+    <string name="rumi_field_credential">Аутентификация</string>
+    <string name="rumi_field_header_name">Имя заголовка</string>
+    <string name="rumi_field_models_path">Путь к списку моделей</string>
+    <string name="rumi_models_path_hint">Добавляется к базовому URL. Оставьте /models для серверов в стиле OpenAI.</string>
+    <string name="rumi_field_capability">Ключ провайдера в models.dev</string>
+    <string name="rumi_capability_hint">Необязательно. Без него модели считаются обычными текстовыми.</string>
+    <string name="rumi_session_header">Отправлять идентификатор сессии</string>
+    <string name="rumi_session_header_hint">Некоторые шлюзы требуют постоянный заголовок x-opencode-session.</string>
+    <string name="rumi_section_snapshots">Снимки в контексте</string>
+    <string name="rumi_snapshots_note">Старые изображения отбрасываются из запроса; их текстовые результаты остаются.</string>
+    <string name="rumi_none">нет</string>
+    <string name="rumi_section_web_search">Поиск в интернете</string>
+    <string name="rumi_web_search_note">Позволяет ассистенту искать, а не отвечать по памяти. Необязательно: без ключа инструмент вообще не предлагается модели.</string>
+    <string name="rumi_search_web">Искать в интернете</string>
+    <string name="rumi_search_add_key">Добавьте ключ Exa, чтобы включить</string>
+    <string name="rumi_search_ready">Exa · готово</string>
+    <string name="rumi_search_saved_off">Exa · ключ сохранён, выключено</string>
+    <string name="rumi_field_exa_key">Ключ API Exa</string>
+    <string name="rumi_saved">Сохранено</string>
+
+    <!-- AI services settings block -->
+    <string name="rumi_ai_title">AI-сервисы</string>
+    <string name="rumi_ai_intro">Необязательно. Они позволяют ассистенту создавать речь, звук, изображения и видео, а не только описывать их. Инструмент предлагается модели только тогда, когда его сервис включён и у него есть ключ; ненастроенный не упоминается вовсе, поэтому выдать себя за доступный он не может. Ключи сохраняются кнопкой здесь.</string>
+    <string name="rumi_ai_empty">Пока ничего не настроено.</string>
+    <string name="rumi_ai_key_support">Хранится отдельно для каждого сервиса. Сохраняется кнопкой выше.</string>
+    <string name="rumi_field_base_url_override">Переопределение базового URL</string>
+    <string name="rumi_field_model_override">Переопределение модели</string>
+    <string name="rumi_field_model">Модель</string>
+    <string name="rumi_ai_required_hint">Требуется для добавленного вами сервиса</string>
+    <string name="rumi_ai_remove">Удалить этот сервис</string>
+    <string name="rumi_ai_custom_title">Свой сервис</string>
+    <string name="rumi_ai_custom_intro">Укажите ассистенту подконтрольную вам OpenAI-совместимую точку входа — свой сервер или прокси. Речь отправляется в `{base}/audio/speech`, изображения — в `{base}/images/generations`. Видео и звук здесь не добавить: подходящей формы запроса для них нет.</string>
+    <string name="rumi_ai_produces">Создаёт</string>
+    <string name="rumi_add">Добавить</string>
+    <string name="rumi_ai_kind_speech">Речь (текст в голос)</string>
+    <string name="rumi_ai_kind_sound">Звуковые эффекты</string>
+    <string name="rumi_ai_kind_image">Изображения</string>
+    <string name="rumi_ai_kind_video">Видео</string>
+    <string name="rumi_ai_kind_speech_note">Превращает текст в озвучку. Готовый сервис предлагается модели как инструмент `speak`, который записывает звук в проект отдельным слоем.</string>
+    <string name="rumi_ai_kind_sound_note">Готового сервиса звука нет, и добавить его здесь нельзя: неизвестен провайдер, который одновременно использует документированную форму запроса и допускает ключ из мобильного приложения. Пока он не настроен другим способом, инструмент `generate_sound` модели не предлагается вовсе.</string>
+    <string name="rumi_ai_kind_image_note">Рисует картинки. Готовый сервис предлагается как инструмент `generate_image`: он записывает файл в проект и добавляет его слоем-изображением.</string>
+    <string name="rumi_ai_kind_video_note">Рендерит короткие клипы. Готовый сервис предлагается как инструмент `generate_video`. Рендер асинхронный, поэтому долгий запрос отвечает именем задачи, которую надо забрать следующим вызовом, а не ошибкой.</string>
+    <string name="rumi_ai_status_no_key">Добавьте ключ, чтобы включить</string>
+    <string name="rumi_ai_status_no_url">Добавьте базовый URL, чтобы включить</string>
+    <string name="rumi_ai_status_no_model">Добавьте модель, чтобы включить</string>
+    <!-- %1$s — the model id. -->
+    <string name="rumi_ai_status_ready">%1$s · готово</string>
+    <string name="rumi_ai_status_off">%1$s · ключ сохранён, выключено</string>
+
+    <!-- One-line descriptions of the built-in providers, shown in the settings. -->
+    <string name="rumi_provider_note_opencode_go">Шлюз по подписке для сторонних агентов-программистов. Нужен один постоянный идентификатор сессии на установку.</string>
+    <string name="rumi_provider_note_opencode_zen">Шлюз с оплатой по факту. Тот же протокол, что у Go, но счёт идёт за токены.</string>
+    <string name="rumi_provider_note_gemini">Доступен через OpenAI-совместимую точку входа Google.</string>
+    <string name="rumi_provider_note_anthropic">Говорит по протоколу Messages; у рассуждений и вызовов инструментов своя форма.</string>
+    <string name="rumi_provider_note_openai">Chat Completions. Вызовы инструментов работают; идентификатор сессии не отправляется.</string>
+    <string name="rumi_provider_note_custom">Любая OpenAI-совместимая точка входа: свой сервер, прокси или шлюз, о котором эта сборка не слышала.</string>
+
+    <!-- One-line descriptions of the built-in generation services. -->
+    <string name="rumi_ai_note_gemini_speech">30 готовых голосов, на выходе WAV. Бесплатный тариф покрывает синтез речи.</string>
+    <string name="rumi_ai_note_openai_speech">13 голосов, на выходе MP3. `instructions` работает только в этой модели.</string>
+    <string name="rumi_ai_note_gemini_image">Nano Banana, 1K/2K/4K. Бесплатного тарифа нет: ключ должен быть у проекта с включённой оплатой.</string>
+    <string name="rumi_ai_note_openai_image">Модели GPT для изображений всегда возвращают base64, а не ссылку.</string>
+    <string name="rumi_ai_note_veo">Рендерится асинхронно (от 11 с до ~6 мин). Только платный тариф.</string>
+    <string name="rumi_ai_note_seedance">BytePlus ModelArk, собственный API ByteDance. Рендерится асинхронно; готовая ссылка живёт 24 часа, поэтому файл скачивается сразу по завершении задачи.</string>
+
+    <!-- Chat screen: top bar and status -->
+    <string name="rumi_conversations">Диалоги</string>
+    <string name="rumi_choose_model">Выбор модели</string>
+    <string name="rumi_more">Ещё</string>
+    <string name="rumi_open_in_editor">Открыть в редакторе</string>
+    <string name="rumi_new_chat">Новый диалог</string>
+    <string name="rumi_refresh_models">Обновить список моделей</string>
+    <string name="rumi_settings">Настройки</string>
+    <string name="rumi_sign_in">Войти</string>
+    <!-- %1$s — the tool the running turn is on. -->
+    <string name="rumi_status_running">выполняется %1$s…</string>
+    <string name="rumi_status_waiting">ждём модель…</string>
+    <string name="rumi_state_not_signed_in">вход не выполнен</string>
+    <string name="rumi_state_no_tools">без инструментов</string>
+    <string name="rumi_state_ready">готово</string>
+    <string name="rumi_state_no_model">Модель не выбрана</string>
+
+    <!-- Conversation history drawer -->
+    <string name="rumi_chats_empty">Диалогов пока нет.</string>
+    <string name="rumi_rename_title">Переименовать диалог</string>
+    <string name="rumi_rename">Переименовать</string>
+    <string name="rumi_cancel">Отмена</string>
+    <string name="rumi_delete_title">Удалить этот диалог?</string>
+    <string name="rumi_delete_body">Сообщения удаляются безвозвратно; отменить это нельзя.</string>
+    <string name="rumi_delete">Удалить</string>
+    <string name="rumi_current_conversation">Текущий диалог</string>
+
+    <!-- Transcript -->
+    <string name="rumi_process_thinking">Думает…</string>
+    <!-- %1$s — the step count, built from rumi_process_steps. -->
+    <string name="rumi_process_working">Работает · %1$s</string>
+    <string name="rumi_process_done">Всё обдумано</string>
+    <string name="rumi_reasoning">Рассуждения</string>
+    <string name="rumi_tool_image">Изображение из инструмента</string>
+    <string name="rumi_empty_transcript">Rumi редактирует этот проект для вас: попросите об изменении — и он сделает его инструментами самого редактора, а затем покажет результат.</string>
+
+    <!-- Composer and the sign-in barrier -->
+    <string name="rumi_composer_hint">Попросите Rumi изменить проект…</string>
+    <string name="rumi_send">Отправить</string>
+    <string name="rumi_stop">Остановить</string>
+    <string name="rumi_sign_in_body">Чтобы редактировать, Rumi нужен аккаунт: войдите или вставьте ключ API в настройках.</string>
+
+    <!-- Thinking controls in the model sheet -->
+    <string name="rumi_thinking">Рассуждения</string>
+    <!-- The levels are the model's own values (`low`, `xhigh`, …); an unknown one is shown as it came. -->
+    <string name="rumi_thinking_auto">Авто</string>
+    <string name="rumi_thinking_off">Выкл.</string>
+    <string name="rumi_thinking_on">Вкл.</string>
+    <string name="rumi_thinking_minimal">Минимальный</string>
+    <string name="rumi_thinking_low">Низкий</string>
+    <string name="rumi_thinking_medium">Средний</string>
+    <string name="rumi_thinking_high">Высокий</string>
+    <string name="rumi_thinking_xhigh">Очень высокий</string>
+    <string name="rumi_thinking_max">Максимальный</string>
+
+    <!-- Model picker -->
+    <string name="rumi_model">Модель</string>
+
+    <string name="rumi_models_refresh_failed">Не удалось обновить список моделей: %1$s</string>
+    <string name="rumi_models_load_failed">Не удалось загрузить список моделей: %1$s</string>
+    <string name="rumi_models_no_list">У этого провайдера нет списка моделей. Впишите id модели выше.</string>
+    <string name="rumi_models_not_in_catalogue">Этого провайдера нет в общем каталоге, поэтому его модели (%1$d) считаются обычными текстовыми.</string>
+    <string name="rumi_models_capabilities_failed">Не удалось загрузить возможности, поэтому модели (%1$d) считаются обычными текстовыми: %2$s</string>
+    <string name="rumi_models_refreshing">Обновляем список моделей…</string>
+    <string name="rumi_models_empty">Сейчас нет доступных моделей.</string>
+    <string name="rumi_refresh">Обновить</string>
+    <string name="rumi_model_no_tools">не умеет инструменты</string>
+    <string name="rumi_collapse">Свернуть</string>
+    <string name="rumi_expand">Развернуть</string>
+
+    <!-- Tags in the model list. The protocol name beside them is not translated:
+         it is the token written into the settings file. -->
+    <string name="rumi_model_vision">изображения</string>
+    <string name="rumi_model_tag_no_tools">без инструментов</string>
+    <string name="rumi_model_reasoning">рассуждения</string>
+    <!-- %1$d — context size in thousands of tokens. -->
+    <string name="rumi_model_ctx">%1$dk контекст</string>
+    <string name="rumi_model_free">бесплатно</string>
+
+    <!-- Openers on the empty transcript. They are sent to the model as the user's
+         own message, so they are translated with the interface. -->
+    <string name="rumi_prompt_title">Добавь заголовок в первую секунду</string>
+    <string name="rumi_prompt_blur">Размой фон и сравни его с пикселизацией</string>
+    <string name="rumi_prompt_effect">Напиши эффект, который тонирует всё в бирюзовый, и покажи снимок</string>
+
+    <!-- Sub-agent cards and the sub-agent conversation -->
+    <string name="rumi_agent_working">работает</string>
+    <string name="rumi_agent_closed">закрыт</string>
+    <string name="rumi_agent_gone">Этот подагент больше не в памяти, поэтому его диалог нельзя открыть.</string>
+    <!-- %1$s — the tool the sub-agent is on. -->
+    <string name="rumi_agent_using">использует %1$s</string>
+    <string name="rumi_agent_thinking">думает</string>
+    <string name="rumi_agent_writing">пишет</string>
+    <string name="rumi_agent_starting">запускается</string>
+    <string name="rumi_agent_failed">сбой</string>
+    <string name="rumi_agent_finished">завершён</string>
+    <string name="rumi_agent_back">Назад к диалогу</string>
+    <string name="rumi_agent_empty">Он ещё ничего не сказал.</string>
+
+    <!-- Counts. Russian needs a form for 2–4 that English does not have, so these
+         are plurals rather than a number glued to a noun. -->
+    <plurals name="rumi_process_steps">
+        <item quantity="one">%1$d шаг</item>
+        <item quantity="few">%1$d шага</item>
+        <item quantity="many">%1$d шагов</item>
+        <item quantity="other">%1$d шага</item>
+    </plurals>
+    <!-- %1$s — the time or date of the last message. -->
+    <plurals name="rumi_chat_messages">
+        <item quantity="one">%1$d сообщение · %2$s</item>
+        <item quantity="few">%1$d сообщения · %2$s</item>
+        <item quantity="many">%1$d сообщений · %2$s</item>
+        <item quantity="other">%1$d сообщения · %2$s</item>
+    </plurals>
+
+</resources>

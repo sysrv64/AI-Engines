@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Rumi borrows two strings from the Settings screen's vocabulary: the save button
+  on an auth panel, and the "selected" content description on a model row. They are
+  copied here rather than read through the app's `R`, because the module builds and
+  ships on its own and must not have the app's `R` as a dependency in reverse.
+
+  The key names are deliberately not renamed: the text must read identically in
+  both places, and a second key would be a second translation to keep in step
+  across four locale folders. The app keeps its own copies for the screens that
+  use them there.
+-->
+<resources>
+    <string name="action_save">Save</string>
+    <string name="state_selected">Selected</string>
+</resources>

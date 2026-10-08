@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The assistant tab: the chat screen, its settings blocks and the sub-agent view.
+
+  Model-facing text is deliberately absent from this file: tool descriptions, the
+  progress notes that go back to the model and the protocol tokens written into the
+  settings file are not read by people, and translating them would change what the
+  model or the gateway sees.
+-->
+<resources>
+
+    <!-- Rumi settings block -->
+    <string name="rumi_settings_intro">內建助手。將它指向任意服務商，從該服務商讀取即時模型清單，而它只能透過自己的工具動手。</string>
+    <string name="rumi_section_provider">服務商</string>
+    <!-- Appended to the name of a provider the user added, in the provider chips. -->
+    <string name="rumi_custom_suffix">（自訂）</string>
+    <string name="rumi_field_api_key">API 金鑰</string>
+    <string name="rumi_field_name">名稱</string>
+    <string name="rumi_field_base_url">基礎 URL</string>
+    <string name="rumi_base_url_hint">寫到版本段為止，例如 https://host/v1</string>
+    <!-- %1$s — the provider's name. -->
+    <string name="rumi_key_support">由 %1$s 簽發的金鑰。依服務商分別儲存，切換時不會遺失另一個。</string>
+    <string name="rumi_field_endpoint">覆寫端點</string>
+    <string name="rumi_endpoint_required">自訂服務商必填</string>
+    <string name="rumi_field_protocol">協定</string>
+    <string name="rumi_field_credential">憑證</string>
+    <string name="rumi_field_header_name">請求標頭名稱</string>
+    <string name="rumi_field_models_path">模型清單路徑</string>
+    <string name="rumi_models_path_hint">附加到基礎 URL 之後。OpenAI 形式的伺服器保持 /models。</string>
+    <string name="rumi_field_capability">models.dev 服務商鍵</string>
+    <string name="rumi_capability_hint">選填。不填時，模型會被視為一般對話模型。</string>
+    <string name="rumi_session_header">傳送工作階段 ID</string>
+    <string name="rumi_session_header_hint">有些閘道要求固定的 x-opencode-session 請求標頭。</string>
+    <string name="rumi_section_snapshots">上下文中保留的快照</string>
+    <string name="rumi_snapshots_note">較早的圖片會從請求中移除，它們的文字結果仍會保留。</string>
+    <string name="rumi_none">無</string>
+    <string name="rumi_section_web_search">網路搜尋</string>
+    <string name="rumi_web_search_note">讓助手去查資料，而不是憑記憶回答。選填：沒有金鑰時，這個工具根本不會提供給模型。</string>
+    <string name="rumi_search_web">搜尋網路</string>
+    <string name="rumi_search_add_key">填入 Exa 金鑰即可啟用</string>
+    <string name="rumi_search_ready">Exa · 就緒</string>
+    <string name="rumi_search_saved_off">Exa · 金鑰已儲存，已關閉</string>
+    <string name="rumi_field_exa_key">Exa API 金鑰</string>
+    <string name="rumi_saved">已儲存</string>
+
+    <!-- AI services settings block -->
+    <string name="rumi_ai_title">AI 服務</string>
+    <string name="rumi_ai_intro">選填。它們讓助手能夠生成語音、音效、圖片和影片，而不只是描述。只有當服務已開啟且配有金鑰時，工具才會提供給模型；未設定的服務不會被提及，因此它無法假裝可用。金鑰用這裡的按鈕儲存。</string>
+    <string name="rumi_ai_empty">尚未設定任何服務。</string>
+    <string name="rumi_ai_key_support">依服務分別儲存。用上面的按鈕儲存。</string>
+    <string name="rumi_field_base_url_override">覆寫基礎 URL</string>
+    <string name="rumi_field_model_override">覆寫模型</string>
+    <string name="rumi_field_model">模型</string>
+    <string name="rumi_ai_required_hint">自行新增的服務必填</string>
+    <string name="rumi_ai_remove">刪除此服務</string>
+    <string name="rumi_ai_custom_title">你自己的服務</string>
+    <string name="rumi_ai_custom_intro">把助手指向你掌控的 OpenAI 相容端點——自己的伺服器或代理。語音發往 `{base}/audio/speech`，圖片發往 `{base}/images/generations`。影片和音效無法在這裡新增：沒有可填寫的相容請求格式。</string>
+    <string name="rumi_ai_produces">生成</string>
+    <string name="rumi_add">新增</string>
+    <string name="rumi_ai_kind_speech">語音（文字轉語音）</string>
+    <string name="rumi_ai_kind_sound">音效</string>
+    <string name="rumi_ai_kind_image">圖片</string>
+    <string name="rumi_ai_kind_video">影片</string>
+    <string name="rumi_ai_kind_speech_note">把文字變成配音。就緒的服務會作為 `speak` 工具提供給模型，它把音訊作為圖層寫入專案。</string>
+    <string name="rumi_ai_kind_sound_note">沒有內建的音效服務，這裡也無法新增：目前沒有既能使用有文件的請求格式、又允許在手機應用程式裡使用金鑰的服務商。在以其他方式設定之前，`generate_sound` 工具不會提供給模型。</string>
+    <string name="rumi_ai_kind_image_note">繪製圖片。就緒的服務會作為 `generate_image` 工具提供，它把檔案寫入專案並新增為圖片圖層。</string>
+    <string name="rumi_ai_kind_video_note">渲染短片。就緒的服務會作為 `generate_video` 工具提供。渲染是非同步的，因此耗時較長的渲染會傳回一個任務名稱，供下次呼叫取回，而不是直接失敗。</string>
+    <string name="rumi_ai_status_no_key">填入金鑰即可開啟</string>
+    <string name="rumi_ai_status_no_url">填入基礎 URL 即可開啟</string>
+    <string name="rumi_ai_status_no_model">填入模型即可開啟</string>
+    <!-- %1$s — the model id. -->
+    <string name="rumi_ai_status_ready">%1$s · 就緒</string>
+    <string name="rumi_ai_status_off">%1$s · 金鑰已儲存，已關閉</string>
+
+    <!-- One-line descriptions of the built-in providers, shown in the settings. -->
+    <string name="rumi_provider_note_opencode_go">為第三方程式設計代理打造的訂閱閘道。每次安裝需要一個固定的工作階段 ID。</string>
+    <string name="rumi_provider_note_opencode_zen">按量付費閘道。協定與 Go 相同，按 token 計費。</string>
+    <string name="rumi_provider_note_gemini">透過 Google 的 OpenAI 相容端點存取。</string>
+    <string name="rumi_provider_note_anthropic">使用 Messages 協定；推理和工具呼叫有各自的格式。</string>
+    <string name="rumi_provider_note_openai">Chat Completions。工具呼叫可用；不傳送工作階段 ID。</string>
+    <string name="rumi_provider_note_custom">任意 OpenAI 相容端點：自建伺服器、代理，或者這個版本從未聽說過的閘道。</string>
+
+    <!-- One-line descriptions of the built-in generation services. -->
+    <string name="rumi_ai_note_gemini_speech">30 個預設音色，傳回 WAV。免費額度已涵蓋語音合成。</string>
+    <string name="rumi_ai_note_openai_speech">13 個音色，傳回 MP3。`instructions` 僅在該模型上生效。</string>
+    <string name="rumi_ai_note_gemini_image">Nano Banana，1K/2K/4K。沒有免費額度：金鑰必須屬於已開啟帳單的專案。</string>
+    <string name="rumi_ai_note_openai_image">GPT 圖像模型始終傳回 base64，不傳回連結。</string>
+    <string name="rumi_ai_note_veo">非同步渲染（11 秒到約 6 分鐘）。僅付費層級可用。</string>
+    <string name="rumi_ai_note_seedance">BytePlus ModelArk，字節跳動自家的 API。非同步渲染；生成的連結只保留 24 小時，因此任務一結束就會下載。</string>
+
+    <!-- Chat screen: top bar and status -->
+    <string name="rumi_conversations">對話</string>
+    <string name="rumi_choose_model">選擇模型</string>
+    <string name="rumi_more">更多</string>
+    <string name="rumi_open_in_editor">在編輯器中開啟</string>
+    <string name="rumi_new_chat">新增對話</string>
+    <string name="rumi_refresh_models">重新整理模型清單</string>
+    <string name="rumi_settings">設定</string>
+    <string name="rumi_sign_in">登入</string>
+    <!-- %1$s — the tool the running turn is on. -->
+    <string name="rumi_status_running">正在執行 %1$s…</string>
+    <string name="rumi_status_waiting">正在等待模型…</string>
+    <string name="rumi_state_not_signed_in">未登入</string>
+    <string name="rumi_state_no_tools">無工具</string>
+    <string name="rumi_state_ready">就緒</string>
+    <string name="rumi_state_no_model">未選擇模型</string>
+
+    <!-- Conversation history drawer -->
+    <string name="rumi_chats_empty">還沒有對話。</string>
+    <string name="rumi_rename_title">重新命名對話</string>
+    <string name="rumi_rename">重新命名</string>
+    <string name="rumi_cancel">取消</string>
+    <string name="rumi_delete_title">刪除此對話？</string>
+    <string name="rumi_delete_body">訊息將被永久刪除，且無法復原。</string>
+    <string name="rumi_delete">刪除</string>
+    <string name="rumi_current_conversation">目前對話</string>
+
+    <!-- Transcript -->
+    <string name="rumi_process_thinking">正在思考…</string>
+    <!-- %1$s — the step count, built from rumi_process_steps. -->
+    <string name="rumi_process_working">工作中 · %1$s</string>
+    <string name="rumi_process_done">已經想清楚</string>
+    <string name="rumi_reasoning">推理</string>
+    <string name="rumi_tool_image">工具圖片</string>
+    <string name="rumi_empty_transcript">Rumi 會替你修改這個專案：說出想要的變更，它就用編輯器內建的工具完成，然後把結果給你看。</string>
+
+    <!-- Composer and the sign-in barrier -->
+    <string name="rumi_composer_hint">讓 Rumi 修改專案…</string>
+    <string name="rumi_send">傳送</string>
+    <string name="rumi_stop">停止</string>
+    <string name="rumi_sign_in_body">Rumi 需要帳號才能編輯：請登入，或在設定中貼上 API 金鑰。</string>
+
+    <!-- Thinking controls in the model sheet -->
+    <string name="rumi_thinking">推理</string>
+    <!-- The levels are the model's own values (`low`, `xhigh`, …); an unknown one is shown as it came. -->
+    <string name="rumi_thinking_auto">自動</string>
+    <string name="rumi_thinking_off">關閉</string>
+    <string name="rumi_thinking_on">開啟</string>
+    <string name="rumi_thinking_minimal">最低</string>
+    <string name="rumi_thinking_low">低</string>
+    <string name="rumi_thinking_medium">中</string>
+    <string name="rumi_thinking_high">高</string>
+    <string name="rumi_thinking_xhigh">極高</string>
+    <string name="rumi_thinking_max">最高</string>
+
+    <!-- Model picker -->
+    <string name="rumi_model">模型</string>
+
+    <string name="rumi_models_refresh_failed">無法重新整理模型清單：%1$s</string>
+    <string name="rumi_models_load_failed">無法載入模型清單：%1$s</string>
+    <string name="rumi_models_no_list">此提供方沒有模型清單。請在上方輸入模型 id。</string>
+    <string name="rumi_models_not_in_catalogue">此提供方不在共用目錄中，因此其 %1$d 個模型按一般文字模型處理。</string>
+    <string name="rumi_models_capabilities_failed">無法載入能力資訊，因此 %1$d 個模型按一般文字模型處理：%2$s</string>
+    <string name="rumi_models_refreshing">正在重新整理模型清單…</string>
+    <string name="rumi_models_empty">目前沒有可用的模型。</string>
+    <string name="rumi_refresh">重新整理</string>
+    <string name="rumi_model_no_tools">無法使用工具</string>
+    <string name="rumi_collapse">收合</string>
+    <string name="rumi_expand">展開</string>
+
+    <!-- Tags in the model list. The protocol name beside them is not translated:
+         it is the token written into the settings file. -->
+    <string name="rumi_model_vision">視覺</string>
+    <string name="rumi_model_tag_no_tools">無工具</string>
+    <string name="rumi_model_reasoning">推理</string>
+    <!-- %1$d — context size in thousands of tokens. -->
+    <string name="rumi_model_ctx">%1$dk 上下文</string>
+    <string name="rumi_model_free">免費</string>
+
+    <!-- Openers on the empty transcript. They are sent to the model as the user's
+         own message, so they are translated with the interface. -->
+    <string name="rumi_prompt_title">在第一秒加上標題</string>
+    <string name="rumi_prompt_blur">模糊背景，並與像素化效果對比</string>
+    <string name="rumi_prompt_effect">寫一個把所有畫面染成青綠色的效果，然後給我看快照</string>
+
+    <!-- Sub-agent cards and the sub-agent conversation -->
+    <string name="rumi_agent_working">工作中</string>
+    <string name="rumi_agent_closed">已關閉</string>
+    <string name="rumi_agent_gone">此子代理已不在記憶體中，無法開啟它的對話。</string>
+    <!-- %1$s — the tool the sub-agent is on. -->
+    <string name="rumi_agent_using">正在使用 %1$s</string>
+    <string name="rumi_agent_thinking">思考中</string>
+    <string name="rumi_agent_writing">書寫中</string>
+    <string name="rumi_agent_starting">啟動中</string>
+    <string name="rumi_agent_failed">失敗</string>
+    <string name="rumi_agent_finished">已完成</string>
+    <string name="rumi_agent_back">返回對話</string>
+    <string name="rumi_agent_empty">它還沒有說話。</string>
+
+    <!-- Counts. Russian needs a form for 2–4 that English does not have, so these
+         are plurals rather than a number glued to a noun. -->
+    <plurals name="rumi_process_steps">
+        <item quantity="other">%1$d 步</item>
+    </plurals>
+    <!-- %1$s — the time or date of the last message. -->
+    <plurals name="rumi_chat_messages">
+        <item quantity="other">%1$d 則訊息 · %2$s</item>
+    </plurals>
+
+</resources>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The assistant tab: the chat screen, its settings blocks and the sub-agent view.
+
+  Model-facing text is deliberately absent from this file: tool descriptions, the
+  progress notes that go back to the model and the protocol tokens written into the
+  settings file are not read by people, and translating them would change what the
+  model or the gateway sees.
+-->
+<resources>
+
+    <!-- Rumi settings block -->
+    <string name="rumi_settings_intro">The built-in assistant. Point it at any provider, read the live model list from that provider, and it can only act through its own tools.</string>
+    <string name="rumi_section_provider">Provider</string>
+    <!-- Appended to the name of a provider the user added, in the provider chips. -->
+    <string name="rumi_custom_suffix"> (custom)</string>
+    <string name="rumi_field_api_key">API key</string>
+    <string name="rumi_field_name">Name</string>
+    <string name="rumi_field_base_url">Base URL</string>
+    <string name="rumi_base_url_hint">Up to the version segment, e.g. https://host/v1</string>
+    <!-- %1$s — the provider's name. -->
+    <string name="rumi_key_support">A key minted by %1$s. Stored per provider, so switching does not lose the other one.</string>
+    <string name="rumi_field_endpoint">Endpoint override</string>
+    <string name="rumi_endpoint_required">Required for a custom provider</string>
+    <string name="rumi_field_protocol">Protocol</string>
+    <string name="rumi_field_credential">Credential</string>
+    <string name="rumi_field_header_name">Header name</string>
+    <string name="rumi_field_models_path">Model list path</string>
+    <string name="rumi_models_path_hint">Appended to the base URL. Leave as /models for OpenAI-shaped servers.</string>
+    <string name="rumi_field_capability">models.dev provider key</string>
+    <string name="rumi_capability_hint">Optional. Without it, models are assumed to be plain chat models.</string>
+    <string name="rumi_session_header">Send a session id</string>
+    <string name="rumi_session_header_hint">Some gateways require a stable x-opencode-session header.</string>
+    <string name="rumi_section_snapshots">Snapshots kept in context</string>
+    <string name="rumi_snapshots_note">Older pictures are dropped from the request; their text results stay.</string>
+    <string name="rumi_none">none</string>
+    <string name="rumi_section_web_search">Web search</string>
+    <string name="rumi_web_search_note">Lets the assistant look things up instead of answering from memory. Optional: without a key the tool is not offered to the model at all.</string>
+    <string name="rumi_search_web">Search the web</string>
+    <string name="rumi_search_add_key">Add an Exa key to enable</string>
+    <string name="rumi_search_ready">Exa · ready</string>
+    <string name="rumi_search_saved_off">Exa · key saved, switched off</string>
+    <string name="rumi_field_exa_key">Exa API key</string>
+    <string name="rumi_saved">Saved</string>
+
+    <!-- AI services settings block -->
+    <string name="rumi_ai_title">AI services</string>
+    <string name="rumi_ai_intro">Optional. These let the assistant create speech, sound, pictures and video instead of only describing them. A tool is offered to the model only when its service is switched on and has a key — an unconfigured one is never mentioned, so it cannot pretend to be available. Keys are saved with the button here.</string>
+    <string name="rumi_ai_empty">Nothing configured yet.</string>
+    <string name="rumi_ai_key_support">Stored per service. Saved with the button above.</string>
+    <string name="rumi_field_base_url_override">Base URL override</string>
+    <string name="rumi_field_model_override">Model override</string>
+    <string name="rumi_field_model">Model</string>
+    <string name="rumi_ai_required_hint">Required for a service you added</string>
+    <string name="rumi_ai_remove">Remove this service</string>
+    <string name="rumi_ai_custom_title">Your own service</string>
+    <string name="rumi_ai_custom_intro">Point the assistant at an OpenAI-compatible endpoint you control — your own server, or a proxy you run. Speech posts to `{base}/audio/speech`, images to `{base}/images/generations`. Video and sound cannot be added here: there is no compatible shape to fill in.</string>
+    <string name="rumi_ai_produces">Produces</string>
+    <string name="rumi_add">Add</string>
+    <string name="rumi_ai_kind_speech">Speech (text to voice)</string>
+    <string name="rumi_ai_kind_sound">Sound effects</string>
+    <string name="rumi_ai_kind_image">Images</string>
+    <string name="rumi_ai_kind_video">Video</string>
+    <string name="rumi_ai_kind_speech_note">Turns text into a voice-over. A ready service is offered to the model as the `speak` tool, which writes the audio into the project as a layer.</string>
+    <string name="rumi_ai_kind_sound_note">No sound service is built in and none can be added here: no provider is known that both speaks a documented request shape and allows a key to be used from a mobile app. Until one is configured another way, the `generate_sound` tool is never offered to the model.</string>
+    <string name="rumi_ai_kind_image_note">Draws pictures. A ready service is offered as the `generate_image` tool, which writes the file into the project and adds it as an image layer.</string>
+    <string name="rumi_ai_kind_video_note">Renders short clips. A ready service is offered as the `generate_video` tool. Rendering is asynchronous, so a long render answers with a job name to collect on the next call instead of failing.</string>
+    <string name="rumi_ai_status_no_key">Add a key to switch this on</string>
+    <string name="rumi_ai_status_no_url">Add a base URL to switch this on</string>
+    <string name="rumi_ai_status_no_model">Add a model to switch this on</string>
+    <!-- %1$s — the model id. -->
+    <string name="rumi_ai_status_ready">%1$s · ready</string>
+    <string name="rumi_ai_status_off">%1$s · key saved, switched off</string>
+
+    <!-- One-line descriptions of the built-in providers, shown in the settings. -->
+    <string name="rumi_provider_note_opencode_go">Subscription gateway built for third-party coding agents. One stable session id per install is required.</string>
+    <string name="rumi_provider_note_opencode_zen">Pay-as-you-go gateway. Same protocol as Go, billed per token.</string>
+    <string name="rumi_provider_note_gemini">Reached through Google\'s OpenAI-compatible endpoint.</string>
+    <string name="rumi_provider_note_anthropic">Speaks the Messages protocol; reasoning and tool calls have their own shape.</string>
+    <string name="rumi_provider_note_openai">Chat Completions. Tool calls work; no session id is sent.</string>
+    <string name="rumi_provider_note_custom">Any OpenAI-compatible endpoint: a self-hosted server, a proxy, or a gateway this build has never heard of.</string>
+
+    <!-- One-line descriptions of the built-in generation services. -->
+    <string name="rumi_ai_note_gemini_speech">30 prebuilt voices, returns a WAV. The free tier covers TTS.</string>
+    <string name="rumi_ai_note_openai_speech">13 voices, returns MP3. `instructions` works only on this model.</string>
+    <string name="rumi_ai_note_gemini_image">Nano Banana, 1K/2K/4K. No free tier: the key must be on a billing-enabled project.</string>
+    <string name="rumi_ai_note_openai_image">GPT image models always return base64, never a link.</string>
+    <string name="rumi_ai_note_veo">Renders asynchronously (11 s to ~6 min). Paid tier only.</string>
+    <string name="rumi_ai_note_seedance">BytePlus ModelArk, ByteDance\'s own API. Renders asynchronously; the finished link lives 24 hours, so it is downloaded as soon as the job ends.</string>
+
+    <!-- Chat screen: top bar and status -->
+    <string name="rumi_conversations">Conversations</string>
+    <string name="rumi_choose_model">Choose model</string>
+    <string name="rumi_more">More</string>
+    <string name="rumi_open_in_editor">Open in editor</string>
+    <string name="rumi_new_chat">New chat</string>
+    <string name="rumi_refresh_models">Refresh models</string>
+    <string name="rumi_settings">Settings</string>
+    <string name="rumi_sign_in">Sign in</string>
+    <!-- %1$s — the tool the running turn is on. -->
+    <string name="rumi_status_running">running %1$s…</string>
+    <string name="rumi_status_waiting">waiting for the model…</string>
+    <string name="rumi_state_not_signed_in">not signed in</string>
+    <string name="rumi_state_no_tools">no tools</string>
+    <string name="rumi_state_ready">ready</string>
+    <string name="rumi_state_no_model">No model</string>
+
+    <!-- Conversation history drawer -->
+    <string name="rumi_chats_empty">No conversations yet.</string>
+    <string name="rumi_rename_title">Rename conversation</string>
+    <string name="rumi_rename">Rename</string>
+    <string name="rumi_cancel">Cancel</string>
+    <string name="rumi_delete_title">Delete this conversation?</string>
+    <string name="rumi_delete_body">The messages are removed for good; this cannot be undone.</string>
+    <string name="rumi_delete">Delete</string>
+    <string name="rumi_current_conversation">Current conversation</string>
+
+    <!-- Transcript -->
+    <string name="rumi_process_thinking">Thinking…</string>
+    <!-- %1$s — the step count, built from rumi_process_steps. -->
+    <string name="rumi_process_working">Working · %1$s</string>
+    <string name="rumi_process_done">Thought it through</string>
+    <string name="rumi_reasoning">Reasoning</string>
+    <string name="rumi_tool_image">Tool image</string>
+    <string name="rumi_empty_transcript">Rumi edits this project for you: ask for a change and it makes it with the editor\'s own tools, then shows you the result.</string>
+
+    <!-- Composer and the sign-in barrier -->
+    <string name="rumi_composer_hint">Ask Rumi to change the project…</string>
+    <string name="rumi_send">Send</string>
+    <string name="rumi_stop">Stop</string>
+    <string name="rumi_sign_in_body">Rumi needs an account before it can edit: sign in or paste an API key in Settings.</string>
+
+    <!-- Thinking controls in the model sheet -->
+    <string name="rumi_thinking">Thinking</string>
+    <!-- The levels are the model's own values (`low`, `xhigh`, …); an unknown one is shown as it came. -->
+    <string name="rumi_thinking_auto">Auto</string>
+    <string name="rumi_thinking_off">Off</string>
+    <string name="rumi_thinking_on">On</string>
+    <string name="rumi_thinking_minimal">Minimal</string>
+    <string name="rumi_thinking_low">Low</string>
+    <string name="rumi_thinking_medium">Medium</string>
+    <string name="rumi_thinking_high">High</string>
+    <string name="rumi_thinking_xhigh">Extra high</string>
+    <string name="rumi_thinking_max">Max</string>
+
+    <!-- Model picker -->
+    <string name="rumi_model">Model</string>
+
+    <string name="rumi_models_refresh_failed">Could not refresh the model list: %1$s</string>
+    <string name="rumi_models_load_failed">Could not load the model list: %1$s</string>
+    <string name="rumi_models_no_list">This provider has no model list. Type a model id above.</string>
+    <string name="rumi_models_not_in_catalogue">This provider is not in the shared catalogue, so its %1$d model(s) are assumed to be chat-compatible text models.</string>
+    <string name="rumi_models_capabilities_failed">Capabilities could not be loaded, so %1$d model(s) are assumed to be chat-compatible text models: %2$s</string>
+    <string name="rumi_models_refreshing">Refreshing the model list…</string>
+    <string name="rumi_models_empty">No models are available right now.</string>
+    <string name="rumi_refresh">Refresh</string>
+    <string name="rumi_model_no_tools">cannot use tools</string>
+    <string name="rumi_collapse">Collapse</string>
+    <string name="rumi_expand">Expand</string>
+
+    <!-- Tags in the model list. The protocol name beside them is not translated:
+         it is the token written into the settings file. -->
+    <string name="rumi_model_vision">vision</string>
+    <string name="rumi_model_tag_no_tools">no tools</string>
+    <string name="rumi_model_reasoning">reasoning</string>
+    <!-- %1$d — context size in thousands of tokens. -->
+    <string name="rumi_model_ctx">%1$dk ctx</string>
+    <string name="rumi_model_free">free</string>
+
+    <!-- Openers on the empty transcript. They are sent to the model as the user's
+         own message, so they are translated with the interface. -->
+    <string name="rumi_prompt_title">Add a title over the first second</string>
+    <string name="rumi_prompt_blur">Blur the background and compare it with pixelate</string>
+    <string name="rumi_prompt_effect">Write an effect that tints everything teal, then show me a snapshot</string>
+
+    <!-- Sub-agent cards and the sub-agent conversation -->
+    <string name="rumi_agent_working">working</string>
+    <string name="rumi_agent_closed">closed</string>
+    <string name="rumi_agent_gone">This sub-agent is no longer in memory, so its conversation cannot be opened.</string>
+    <!-- %1$s — the tool the sub-agent is on. -->
+    <string name="rumi_agent_using">using %1$s</string>
+    <string name="rumi_agent_thinking">thinking</string>
+    <string name="rumi_agent_writing">writing</string>
+    <string name="rumi_agent_starting">starting</string>
+    <string name="rumi_agent_failed">failed</string>
+    <string name="rumi_agent_finished">finished</string>
+    <string name="rumi_agent_back">Back to the conversation</string>
+    <string name="rumi_agent_empty">It has not said anything yet.</string>
+
+    <!-- Counts. Russian needs a form for 2–4 that English does not have, so these
+         are plurals rather than a number glued to a noun. -->
+    <plurals name="rumi_process_steps">
+        <item quantity="one">%1$d step</item>
+        <item quantity="other">%1$d steps</item>
+    </plurals>
+    <!-- %1$s — the time or date of the last message. -->
+    <plurals name="rumi_chat_messages">
+        <item quantity="one">%1$d message · %2$s</item>
+        <item quantity="other">%1$d messages · %2$s</item>
+    </plurals>
+
+</resources>
